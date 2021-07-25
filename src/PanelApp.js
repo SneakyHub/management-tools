@@ -5,17 +5,45 @@ class PanelApp extends Application {
         super(host, key)
     }
 
-    async get getAllServers() {
-        const servers = (await instance.get(`/api/application/servers?page=0&per_page=10000`)).data['data'].map(x => x.attributes)
+    async getAllServers() {
+        const servers = (await this.instance.get(`/api/application/servers?page=0&per_page=10000`)).data['data'].map(x => x.attributes)
         return servers
     }
 
-    async deleteServer(server) {
-        await instance.delete(`/api/application/servers/${server.id}/force`)
+    async getServersByEgg(egg_id) {
+        const servers = (await this.getAllServers()).filter( server => server.egg == egg_id )
+        return servers
     }
 
-    async deleteServerById(id) {
-        await instance.delete(`/api/application/servers/${id}/force`)
+    async getServersByNest(nest_id) {
+        const servers = (await this.getAllServers()).filter( server => server.nest == nest_id )
+        return servers
+    }
+
+    async deleteAllServers() {
+        const servers = await this.getAllServers()
+        for(const server of servers)
+            await this.deleteServer(server)
+    }
+
+    async deleteServer(server) {
+        await this.instance.delete(`/api/application/servers/${server.id}/force`)
+        .then(() => console.log(`[ > ] Successfully deleted server [ID = ${server.id}]`))
+        .catch(error => console.log(`[ * ] Error in deleting server [ID = ${server.id}] \n Traceback: \n ${error}`))
+    }
+
+    async deleteServersByEgg(egg_id){
+        const servers = await this.getServersByEgg(egg_id)
+        console.log(`[ > ] Deleting servers with [EGG = ${egg_id}]`)
+        for(const server of servers)
+            await this.deleteServer(server)
+    }
+
+    async deleteServersByNest(nest_id){
+        const servers = await this.getServersByNest(nest_id)
+        console.log(`[ > ] Deleting servers with [NEST = ${nest_id}]`)
+        for(const server of servers)
+            await this.deleteServer(server)
     }
 }
 
