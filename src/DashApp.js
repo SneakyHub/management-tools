@@ -1,8 +1,7 @@
-class DashApp {
-    constructor(host, key) {
-        this.host = host
-        this.key = key
-    }
+const Application = require("./Application");
+
+class DashApp extends Application {
+
 }
 
 module.exports = DashApp
