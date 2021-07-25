@@ -1,6 +1,9 @@
 const Application = require("./Application")
 
 class PanelApp extends Application {
+    constructor(host, key) {
+        super(host, key)
+    }
 
     async get getAllServers() {
         const servers = (await instance.get(`/api/application/servers?page=0&per_page=10000`)).data['data'].map(x => x.attributes)
