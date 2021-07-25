@@ -1,0 +1,23 @@
+{
+  "name": "management-tools",
+  "version": "1.0.0",
+  "description": "SneakyHub pterodactyl &amp; dashboard management tools.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SneakyHub/management-tools.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SneakyHub/management-tools/issues"
+  },
+  "homepage": "https://github.com/SneakyHub/management-tools#readme",
+  "dependencies": {
+    "axios": "^0.21.1",
+    "prompt-sync": "^4.2.0"
+  }
+}
