@@ -1,4 +1,10 @@
 {
-    "dashkey" : "",
-    "pterokey" : ""
+    "dash" : {
+        "host" : "https://dash.sneakyhub.com/",
+        "key" : ""
+    },
+    "panel" : {
+        "host" : "https://panel.sneakyhub.com/",
+        "key" : ""
+    }
 }
