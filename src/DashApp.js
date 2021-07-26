@@ -30,8 +30,8 @@ class DashApp extends Application {
             headers: {
                 ...data.getHeaders()
             }
-        }).then(() => console.log(`[ > ] Set credits to ${deltaCredits} for user [discord_id = ${discord_id}]`))
-            .catch((error) => console.log(`[ * ] Error while setting credits for user [discord_id = ${discord_id} \n Traceback: \n ${error}`))
+        }).then(() => console.log(`[ > ] Set credits to ${credits} for user [discord_id = ${discord_id}]`))
+            .catch((error) => console.log(`[ * ] Error while setting credits for user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
     }
 
     async addCredits(discord_id, deltaCredits){
@@ -50,7 +50,7 @@ class DashApp extends Application {
                 ...data.getHeaders()
             }
         }).then(() => console.log(`[ > ] Added ${deltaCredits} to user [discord_id = ${discord_id}]`))
-            .catch((error) => console.log(`[ * ] Error while adding credits to user [discord_id = ${discord_id} \n Traceback: \n ${error}`))
+            .catch((error) => console.log(`[ * ] Error while adding credits to user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
     }
 
     async subtractCredits(discord_id, deltaCredits){
@@ -72,7 +72,7 @@ class DashApp extends Application {
                 ...data.getHeaders()
             }
         }).then(() => console.log(`[ > ] Subtracted ${deltaCredits} from user [discord_id = ${discord_id}]`))
-            .catch((error) => console.log(`[ * ] Error while subtracting credits from user [discord_id = ${discord_id} \n Traceback: \n ${error}`))
+            .catch((error) => console.log(`[ * ] Error while subtracting credits from user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
     }
 
 }
