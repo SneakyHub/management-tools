@@ -1,5 +1,4 @@
 const Application = require("./Application")
-const FormData = require('form-data')
 
 class DashApp extends Application {
     constructor(host, key) {
@@ -19,18 +18,16 @@ class DashApp extends Application {
     async setCredits(discord_id, credits){
         const {name, email, server_limit, role} = await this.getUserByDiscordId(discord_id)
 
-        let data = new FormData()
-        data.append('name', name)
-        data.append('email', email)
-        data.append('credits', credits)
-        data.append('server_limit', server_limit)
-        data.append('role', role)
+        const data = {
+            'name' : name,
+            'email': email,
+            'credits': credits,
+            'server_limit' : server_limit,
+            'role': role
+        }
 
-        await this.instance.patch(`/api/users/${discord_id}`, data, {
-            headers: {
-                ...data.getHeaders()
-            }
-        }).then(() => console.log(`[ > ] Set credits to ${credits} for user [discord_id = ${discord_id}]`))
+        await this.instance.patch(`/api/users/${discord_id}`, data)
+            .then(() => console.log(`[ > ] Set credits to ${credits} for user [discord_id = ${discord_id}]`))
             .catch((error) => console.log(`[ * ] Error while setting credits for user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
     }
 
@@ -38,19 +35,16 @@ class DashApp extends Application {
         const {name, email, credits, server_limit, role} = await this.getUserByDiscordId(discord_id)
         const newCredits = credits + deltaCredits
 
-        let data = new FormData()
-        data.append('name', name)
-        data.append('email', email)
-        data.append('credits', newCredits)
-        data.append('server_limit', server_limit)
-        data.append('role', role)
+        const data = {
+            'name' : name,
+            'email': email,
+            'credits': newCredits,
+            'server_limit' : server_limit,
+            'role': role
+        }
 
-        await this.instance.patch(`/api/users/${discord_id}`, data, {
-            headers: {
-                ...data.getHeaders()
-            }
-        }).then(() => console.log(`[ > ] Added ${deltaCredits} to user [discord_id = ${discord_id}]`))
-            .catch((error) => console.log(`[ * ] Error while adding credits to user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
+        await this.instance.patch(`/api/users/${discord_id}`, data).then(() => console.log(`[ > ] Added ${deltaCredits} credits to user [discord_id = ${discord_id}]`))
+            .catch((error) => console.log(`[ * ] Error while adding credits to user [discord_id = ${discord_id}] \n Traceback: \n`, error))
     }
 
     async subtractCredits(discord_id, deltaCredits){
@@ -60,19 +54,16 @@ class DashApp extends Application {
         if(newCredits < 0)
             throw new Error(`User does not have enough credits!`)
 
-        let data = new FormData()
-        data.append('name', name)
-        data.append('email', email)
-        data.append('credits', newCredits)
-        data.append('server_limit', server_limit)
-        data.append('role', role)
+        const data = {
+            'name' : name,
+            'email': email,
+            'credits': newCredits,
+            'server_limit' : server_limit,
+            'role': role
+        }
 
-        await this.instance.patch(`/api/users/${discord_id}`, data, {
-            headers: {
-                ...data.getHeaders()
-            }
-        }).then(() => console.log(`[ > ] Subtracted ${deltaCredits} from user [discord_id = ${discord_id}]`))
-            .catch((error) => console.log(`[ * ] Error while subtracting credits from user [discord_id = ${discord_id}] \n Traceback: \n ${error}`))
+        await this.instance.patch(`/api/users/${discord_id}`, data).then(() => console.log(`[ > ] Subtracted ${deltaCredits} credits from user [discord_id = ${discord_id}]`))
+            .catch((error) => console.log(`[ * ] Error while subtracting credits from user [discord_id = ${discord_id}] \n Traceback: \n`, error))
     }
 
 }
